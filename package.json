@@ -4,6 +4,7 @@
   "description": "Project for study of NodeJS",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,13 @@
   "bugs": {
     "url": "https://github.com/UpperApps/node-rest-api/issues"
   },
-  "homepage": "https://github.com/UpperApps/node-rest-api#readme"
+  "homepage": "https://github.com/UpperApps/node-rest-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "consign": "^0.1.6",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
