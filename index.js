@@ -1,4 +1,4 @@
-const customExpress = require('./config/custom-express');
+import customExpress from './config/custom-express'
 
 const app = customExpress();
 
