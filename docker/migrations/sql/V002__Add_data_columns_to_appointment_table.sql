@@ -1,0 +1,1 @@
+ALTER TABLE appointment ADD date_appointment DATETIME NOT NULL, ADD date_create DATETIME NOT NULL;
