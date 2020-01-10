@@ -5,15 +5,15 @@ module.exports = app => {
     appointmentDAO
       .findAll()
       .then(appointments => {
-        res.send(appointments);
+        res.json(appointments);
       })
-      .catch(error => res.status(404).send('No appointments found'));
+      .catch(error => res.status(404).json(error));
   });
 
   app.post('/appointments', (req, res) => {
     appointmentDAO
       .save(req.body)
-      .then(() => res.status(204).end())
-      .catch(error => res.status(404).send(`Incorrect payload: ${error}`));
+      .then(result => res.status(201).json(result))
+      .catch(error => res.status(404).json(`Incorrect payload: ${error}`));
   });
 };
