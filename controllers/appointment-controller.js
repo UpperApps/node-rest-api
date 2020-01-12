@@ -1,8 +1,10 @@
-import appointmentDAO from '../model/appointment-dao';
+import appointmentService from '../model/appointment-service';
 
+// TODO Change this implementation to use express Router.
+// TODO Include input sanitization using express validator.
 module.exports = app => {
   app.get('/appointments', (req, res) => {
-    appointmentDAO
+    appointmentService
       .findAll()
       .then(appointments => res.json(appointments))
       .catch(error => res.status(404).json(error));
@@ -11,7 +13,7 @@ module.exports = app => {
   app.get('/appointments/:id', (req, res) => {
     const id = req.params.id;
 
-    appointmentDAO
+    appointmentService
       .findById(id)
       .then(appointments => res.json(appointments))
       .catch(error => res.status(404).json(error));
@@ -20,7 +22,7 @@ module.exports = app => {
   app.delete('/appointments/:id', (req, res) => {
     const id = req.params.id;
 
-    appointmentDAO
+    appointmentService
       .delete(id)
       .then(res.status(204).end())
       .catch(error => res.status(404).json(error));
@@ -29,14 +31,14 @@ module.exports = app => {
   app.put('/appointments/:id', (req, res) => {
     const id = req.params.id;
 
-    appointmentDAO
+    appointmentService
       .update(id, req.body)
       .then(result => res.status(201).json(result))
       .catch(error => res.status(404).json(error));
   });
 
   app.post('/appointments', (req, res) => {
-    appointmentDAO
+    appointmentService
       .save(req.body)
       .then(result => res.status(201).json(result))
       .catch(error => res.status(404).json(error));
