@@ -1,7 +1,8 @@
 import appointmentService from '../model/appointment-service';
+import validate from '../validations/validate';
+import { clientValidations, dateAppointmentValidations, idGETValidations, idValidations } from '../validations/appointment-validations';
 
 // TODO Change this implementation to use express Router.
-// TODO Include input sanitization using express validator.
 module.exports = app => {
   app.get('/appointments', (req, res) => {
     appointmentService
@@ -10,7 +11,9 @@ module.exports = app => {
       .catch(error => res.status(404).json(error));
   });
 
-  app.get('/appointments/:id', (req, res) => {
+  app.get('/appointments/:id', [...idGETValidations], (req, res) => {
+    validate(req, res);
+
     const id = req.params.id;
 
     appointmentService
@@ -19,7 +22,8 @@ module.exports = app => {
       .catch(error => res.status(404).json(error));
   });
 
-  app.delete('/appointments/:id', (req, res) => {
+  app.delete('/appointments/:id', [...idValidations], (req, res) => {
+    validate(req, res);
     const id = req.params.id;
 
     appointmentService
@@ -28,7 +32,9 @@ module.exports = app => {
       .catch(error => res.status(404).json(error));
   });
 
-  app.put('/appointments/:id', (req, res) => {
+  app.put('/appointments/:id', [...idValidations, clientValidations, ...dateAppointmentValidations], (req, res) => {
+    validate(req, res);
+
     const id = req.params.id;
 
     appointmentService
@@ -37,7 +43,9 @@ module.exports = app => {
       .catch(error => res.status(404).json(error));
   });
 
-  app.post('/appointments', (req, res) => {
+  app.post('/appointments', [clientValidations, ...dateAppointmentValidations], (req, res) => {
+    validate(req, res);
+
     appointmentService
       .save(req.body)
       .then(result => res.status(201).json(result))
