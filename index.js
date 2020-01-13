@@ -1,8 +1,10 @@
 import customExpress from './config/custom-express';
 import connection from './infrastructure/mysql-connection';
-import e from 'express';
+import routers from './controllers/routers';
 
 const app = customExpress();
+
+app.use('/api', routers);
 
 connection.connect(error => {
   if (error) {
