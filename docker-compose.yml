@@ -14,7 +14,7 @@ services:
     image: flyway/flyway
     command: 'migrate'
     volumes:
-      - ./docker/migrations/config:/flyway/conf
-      - ./docker/migrations/sql:/flyway/sql
+      - ./infrastructure/migrations/config:/flyway/conf
+      - ./infrastructure/migrations/sql:/flyway/sql
     depends_on:
       - mysql

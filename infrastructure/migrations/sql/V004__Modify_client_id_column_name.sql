@@ -1,0 +1,1 @@
+ALTER TABLE appointment RENAME COLUMN cliente_id TO client_id;

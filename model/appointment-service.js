@@ -3,9 +3,6 @@ import moment from 'moment';
 
 class AppointmentService {
   save(appointment) {
-    const date_create = moment().format('YYYY-MM-DD HH:mm:ss');
-    const appointmentWithDate = { ...appointment, date_create };
-
     return new Promise((resolve, reject) => {
       const errors = this.validate(appointment);
 
@@ -14,16 +11,13 @@ class AppointmentService {
       }
 
       appointmentDAO
-        .save(appointmentWithDate)
+        .save(appointment)
         .then(result => resolve(result))
         .catch(error => reject(error));
     });
   }
 
   update(id, appointment) {
-    const date_create = moment().format('YYYY-MM-DD HH:mm:ss');
-    const appointmentWithDate = { ...appointment, date_create };
-
     return new Promise((resolve, reject) => {
       const errors = this.validate(appointment);
 
@@ -49,39 +43,32 @@ class AppointmentService {
 
   findAll() {
     return new Promise((resolve, reject) => {
-        appointmentDAO
-          .findAll()
-          .then(result => resolve(result))
-          .catch(error => reject(error));
-      });
+      appointmentDAO
+        .findAll()
+        .then(result => resolve(result))
+        .catch(error => reject(error));
+    });
   }
 
   findById(id) {
     return new Promise((resolve, reject) => {
-        appointmentDAO
-          .findById(id)
-          .then(result => resolve(result))
-          .catch(error => reject(error));
-      });
+      appointmentDAO
+        .findById(id)
+        .then(result => resolve(result))
+        .catch(error => reject(error));
+    });
   }
 
-  // TODO Include express-validator to perform fields validation.
   validate(fields) {
-    const { date_create, date_appointment, client } = fields;
+    const { date_appointment } = fields;
 
-    const isDateValid = moment(date_appointment).isSameOrAfter(date_create);
-    const isClientValid = client.length >= 5;
+    const isDateValid = moment(date_appointment).isSameOrAfter(moment());
 
     const validations = [
       {
         name: 'date',
         isValid: isDateValid,
         message: 'Date must be higher or equal than the current date'
-      },
-      {
-        name: 'client',
-        isValid: isClientValid,
-        message: 'Name must have at least 5 characters'
       }
     ];
 

@@ -33,7 +33,7 @@ router.delete('/:id', [...idValidations], (req, res) => {
     .catch(error => res.status(404).json(error));
 });
 
-router.put('/:id', [...idValidations, clientValidations, ...dateAppointmentValidations], (req, res) => {
+router.put('/:id', [...idValidations, ...dateAppointmentValidations], (req, res) => {
   validateInputs(req, res);
 
   const id = req.params.id;
@@ -44,7 +44,7 @@ router.put('/:id', [...idValidations, clientValidations, ...dateAppointmentValid
     .catch(error => res.status(404).json(error));
 });
 
-router.post('/', [clientValidations, ...dateAppointmentValidations], (req, res) => {
+router.post('/', [...dateAppointmentValidations], (req, res) => {
   validateInputs(req, res);
 
   appointmentService
