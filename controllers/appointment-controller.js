@@ -1,5 +1,5 @@
 import appointmentService from '../model/appointment-service';
-import validate from '../validations/validate';
+import validateInputs from '../validations/validate-inputs';
 import { clientValidations, dateAppointmentValidations, idGETValidations, idValidations } from '../validations/appointment-validations';
 import express from 'express';
 
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', [...idGETValidations], (req, res) => {
-  validate(req, res);
+  validateInputs(req, res);
 
   const id = req.params.id;
 
@@ -24,7 +24,7 @@ router.get('/:id', [...idGETValidations], (req, res) => {
 });
 
 router.delete('/:id', [...idValidations], (req, res) => {
-  validate(req, res);
+  validateInputs(req, res);
   const id = req.params.id;
 
   appointmentService
@@ -34,7 +34,7 @@ router.delete('/:id', [...idValidations], (req, res) => {
 });
 
 router.put('/:id', [...idValidations, clientValidations, ...dateAppointmentValidations], (req, res) => {
-  validate(req, res);
+  validateInputs(req, res);
 
   const id = req.params.id;
 
@@ -45,7 +45,7 @@ router.put('/:id', [...idValidations, clientValidations, ...dateAppointmentValid
 });
 
 router.post('/', [clientValidations, ...dateAppointmentValidations], (req, res) => {
-  validate(req, res);
+  validateInputs(req, res);
 
   appointmentService
     .save(req.body)
