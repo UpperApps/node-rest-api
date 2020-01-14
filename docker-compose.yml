@@ -10,6 +10,8 @@ services:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=123456
       - MYSQL_DATABASE=agenda-petshop
+    volumes: 
+      - '../docker_db:/var/lib/mysql'
   flyway:
     image: flyway/flyway
     command: 'migrate'
