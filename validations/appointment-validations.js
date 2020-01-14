@@ -2,7 +2,7 @@ import { check, sanitize, sanitizeBody, param } from 'express-validator';
 
 export const idGETValidations = [
   param('id')
-    .isNumeric()
+    .isInt()
     .withMessage('Id must be an integer number'),
   sanitize('id').toInt()
 ];
@@ -15,10 +15,6 @@ export const idValidations = [
     .withMessage('Id must be an integer number'),
   sanitize('id').toInt()
 ];
-
-export const clientValidations = check('client')
-  .isLength({ min: 4 })
-  .withMessage('Client name must be higher than 4 characteres');
 
 export const dateAppointmentValidations = [
   check('date_appointment')
