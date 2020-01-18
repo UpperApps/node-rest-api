@@ -21,7 +21,7 @@ class AppointmentDAO {
 
       connection.query(sql, [appointment, id], error => {
         if (error) {
-          return reject(`Error on uptating appointment: ${error.sqlMessage}`);
+          return reject(`Error on updating appointment: ${error.sqlMessage}`);
         }
 
         return resolve(appointment);
@@ -51,6 +51,19 @@ class AppointmentDAO {
           return reject(`Error when getting appointment with id: ${id} - Error: ${error.sqlMessage}`);
         }
         return resolve(result[0]);
+      });
+    });
+  }
+
+  findByClientId(client_id) {
+    const sql = 'SELECT * FROM appointment where client_id = ?';
+
+    return new Promise((resolve, reject) => {
+      connection.query(sql, client_id, (error, result) => {
+        if (error) {
+          return reject(`Error when getting appointment with client id: ${client_id} - Error: ${error.sqlMessage}`);
+        }
+        return resolve(result);
       });
     });
   }
